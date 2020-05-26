@@ -17,4 +17,8 @@ export class UsersService {
   async list(): Promise<User[]> {
     return await this.userModel.find().exec()
   }
+
+  async findOneByEmail(email: string): Promise<User> {
+    return await this.userModel.findOne({ email })
+  }
 }
