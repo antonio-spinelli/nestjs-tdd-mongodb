@@ -25,11 +25,26 @@ describe('UsersService', () => {
     expect(service).toBeDefined()
   })
 
-  it('should create User', async () => {
-    const user = await service.create(userDto)
-    expect(user).not.toBeNull()
-    expect(user.email).toEqual(userDto.email)
-    expect(user.password).toEqual(userDto.password)
+  describe('#create', () => {
+    it('should not create User with falsy params', async () => {
+      expect.assertions(4)
+      try {
+        await service.create(null)
+      } catch (error) {
+        error = error as Error
+        expect(error.name).toEqual('ValidationError')
+        expect(error.errors).not.toBeNull()
+        expect(error.errors.email).not.toBeNull()
+        expect(error.errors.password).not.toBeNull()
+      }
+    })
+
+    it('should create User', async () => {
+      const user = await service.create(userDto)
+      expect(user).not.toBeNull()
+      expect(user.email).toEqual(userDto.email)
+      expect(user.password).toEqual(userDto.password)
+    })
   })
 
   it('should list Users', async () => {
@@ -39,6 +54,7 @@ describe('UsersService', () => {
 
   it('should find User by email', async () => {
     const user = await service.findOneByEmail(userDto.email)
+    expect(user).not.toBeNull()
     expect(user.email).toBe(userDto.email)
   })
 
