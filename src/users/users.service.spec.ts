@@ -32,4 +32,9 @@ describe('UsersService', () => {
     expect(user.email).toBeTruthy()
     expect(user.password).toBeTruthy()
   })
+
+  it('should list Users', async () => {
+    const users = await service.list()
+    expect(users.length).toBe(1)
+  })
 })

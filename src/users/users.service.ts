@@ -13,4 +13,8 @@ export class UsersService {
     const user = new this.userModel(createUserDto)
     return await user.save()
   }
+
+  async list(): Promise<User[]> {
+    return await this.userModel.find().exec()
+  }
 }
