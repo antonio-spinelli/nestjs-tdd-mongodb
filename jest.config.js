@@ -6,5 +6,7 @@ module.exports = {
     '^.+\\.ts?$': 'ts-jest',
   },
   coverageDirectory: '../coverage',
-  testEnvironment: 'node'
+  globalSetup: './test/setup.js',
+  globalTeardown: './test/teardown.js',
+  testEnvironment: './test/mongo-environment.js',
 }
