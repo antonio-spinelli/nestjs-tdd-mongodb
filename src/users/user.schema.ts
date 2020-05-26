@@ -1,4 +1,7 @@
 import { Schema } from 'mongoose'
+import * as bcrypt from 'bcrypt'
+
+import { User } from './user.interface'
 
 export const UserSchema = new Schema({
   email: {
