@@ -1,5 +1,6 @@
 import { MongooseModule } from '@nestjs/mongoose'
 import { Test, TestingModule } from '@nestjs/testing'
+import { Error } from 'mongoose'
 
 import { CreateUserDto } from './dto/create-user.dto'
 import { UserSchema } from './user.schema'
@@ -43,7 +44,13 @@ describe('UsersService', () => {
       const user = await service.create(userDto)
       expect(user).not.toBeNull()
       expect(user.email).toEqual(userDto.email)
-      expect(user.password).toEqual(userDto.password)
+      expect(user.password).not.toEqual(userDto.password)
+    })
+
+    it('should crypt User password', async () => {
+      const user = await service.findOneByEmail(userDto.email)
+      expect(user).not.toBeNull()
+      expect(user.password.startsWith('$2b$10$')).toBe(true)
     })
   })
 
