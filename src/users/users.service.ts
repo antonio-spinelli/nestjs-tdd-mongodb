@@ -21,4 +21,8 @@ export class UsersService {
   async findOneByEmail(email: string): Promise<User> {
     return await this.userModel.findOne({ email })
   }
+
+  async delete(id: string): Promise<any> {
+    return await this.userModel.deleteOne({ _id: id })
+  }
 }

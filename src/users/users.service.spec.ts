@@ -41,4 +41,12 @@ describe('UsersService', () => {
     const user = await service.findOneByEmail(userDto.email)
     expect(user.email).toBe(userDto.email)
   })
+
+  it('should delete User', async () => {
+    const user = await service.findOneByEmail(userDto.email)
+    expect(user).not.toBeNull()
+    const res = await service.delete(user.id)
+    expect(res.ok).toBe(1)
+    expect(res.deletedCount).toBe(1)
+  })
 })
